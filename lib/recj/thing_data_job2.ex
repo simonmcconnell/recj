@@ -44,7 +44,7 @@ defmodule Recj.ThingDataJob2 do
     args
     |> tap(&Logger.info("this job's args: #{inspect(&1)}"))
     |> Map.put("tags", tags)
-    # |> Map.update("results", %{thing => :ok}, &Map.put(&1, thing, :ok))
+    |> Map.update("results", %{thing => :ok}, &Map.put(&1, thing, :ok))
     |> tap(&Logger.info("next job's args: #{inspect(&1)}"))
     |> new(schedule_in: 1)
     |> tap(&Logger.info("new job: #{inspect(&1)}"))
