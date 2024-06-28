@@ -7,6 +7,20 @@
 # General application configuration
 import Config
 
+config :recj, Oban,
+  plugins: [
+    Oban.Plugins.Lifeline,
+    Oban.Plugins.Reindexer,
+    # {Oban.Plugins.Reindexer, timezone: "Australia/Brisbane"},
+    {Oban.Plugins.Pruner, max_age: :timer.hours(48)}
+  ],
+  repo: Recj.Repo,
+  queues: [
+    reports: [limit: 1],
+    things: [limit: 4],
+    default: [limit: 10]
+  ]
+
 config :recj,
   ecto_repos: [Recj.Repo],
   generators: [timestamp_type: :utc_datetime]

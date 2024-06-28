@@ -10,6 +10,7 @@ defmodule Recj.Application do
     children = [
       RecjWeb.Telemetry,
       Recj.Repo,
+      {Oban, Application.fetch_env!(:recj, Oban)},
       {DNSCluster, query: Application.get_env(:recj, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Recj.PubSub},
       # Start a worker by calling: Recj.Worker.start_link(arg)
